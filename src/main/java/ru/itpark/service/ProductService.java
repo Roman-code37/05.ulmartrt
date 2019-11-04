@@ -1,19 +1,41 @@
 package ru.itpark.service;
 
 import ru.itpark.category.Product;
+import ru.itpark.comparator.NameDescComparator;
+import ru.itpark.comparator.PriceDescComparator;
 
-import java.util.Collection;
-import java.util.Collections;
-import java.util.LinkedList;
+import java.util.*;
 
 public class ProductService {
-    private final Collection<Product> items = new LinkedList<>();
+    private List<Product> items = new ArrayList<>();
 
-    public Collection<Product> getItems() {
+    public void add(Product item) {
+        items.add(item);
+    }
+
+    public List<Product> getAll() {
         return items;
     }
 
-    public void addAll (Collections items){
-        this.items.addAll((Collection<? extends Product>) items);
+    public List<Product> getNameDescComparator(String name) {
+        List<Product> result = new ArrayList<>();
+        for (Product item : items) {
+            if (item.getName().equals(name)) {
+                result.add(item);
+            }
+        }
+        result.sort(new NameDescComparator());
+        return result;
+    }
+
+    public List<Product> searchByPrice(int min, int max, Comparator<Product> comparator) {
+        List<Product> result = new ArrayList<>();
+        for (Product product : items) {
+            if (product.getPrice() >= min && product.getPrice() <= max) {
+                result.add(product);
+            }
+        }
+        Collections.sort(result, comparator);
+        return result;
     }
 }

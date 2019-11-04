@@ -5,14 +5,21 @@ import lombok.*;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter
-@Setter
+
 public abstract class Product {
 
     private long id;
     private String name;
     private int price;
-    private int rating;
+    private double rating;
+
+    public double getRating() {
+        return rating;
+    }
+
+    public void setRating(double rating) {
+        this.rating = rating;
+    }
 
     public long getId() {
         return id;
@@ -36,10 +43,6 @@ public abstract class Product {
 
     public void setPrice(int price) {
         this.price = price;
-    }
-
-    public int getRating() {
-        return rating;
     }
 
     public void setRating(int rating) {
